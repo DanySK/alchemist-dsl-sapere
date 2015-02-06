@@ -20,6 +20,38 @@
 		<module>../alchemist.saperedsl</module>
 		<module>../alchemist.saperedsl.repository</module>
 	</modules>
+	<description>Alchemist-SAPERE domain specific language</description>
+	<url>https://github.com/DanySK/alchemist-dsl-sapere</url>
+	<licenses>
+		<license>
+			<name>GPL linking exception</name>
+			<url>
+			https://github.com/DanySK/alchemist-dsl-sapere/blob/master/LICENSE.txt
+			</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Danilo Pianini</name>
+			<email>danilo.pianini@unibo.it</email>
+			<url>http://danilopianini.apice.unibo.it/</url>
+		</developer>
+		<developer>
+			<name>Giacomo Pronti</name>
+			<email>giacomo.pronti@studio.unibo.it</email>
+			<url>http://apice.unibo.it/xwiki/bin/view/XWiki/GiacomoPronti/</url>
+		</developer>
+		<developer>
+			<name>Enrico Galassi</name>
+			<email>enrico.galassi@studio.unibo.it</email>
+			<url>http://apice.unibo.it/xwiki/bin/view/XWiki/EnricoGalassi/</url>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git@github.com:DanySK/alchemist-dsl-sapere.git</connection>
+		<developerConnection>scm:git:git@github.com:DanySK/alchemist-dsl-sapere.git</developerConnection>
+		<url>https://github.com/DanySK/alchemist-dsl-sapere</url>
+	</scm>
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>

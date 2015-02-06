@@ -1,0 +1,119 @@
+grammar it.unibo.alchemist.language.SapereDSL with org.eclipse.xtext.common.Terminals
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate saperedsl "http://alchemist.unibo.it/SapereDSL"
+
+Model :
+	Environment;
+
+terminal ML_COMMENT	: '/*' -> '*/';
+SINT returns ecore::EInt: '-'? INT;
+
+Environment :
+	(('environment' (name=IDN)? ('type' type=JavaConstr)) | 'default environment')
+	('generate scenario number ' internalRNGSeed=SINT)?
+	(linkingRule=LinkingRule)
+	(concentration=Concentration)?
+	(position=Position)?
+	(random=RandomEngine)?
+	(time=Time)?
+	(molecules+=Molecule)*
+	(programs+=ReactionPool)*
+	(elements+=NodeGroup)*
+	 ;
+ReactionPool: 'program' name=IDN ('extends' parent=[ReactionPool|IDN])?  reactions+=Reaction+;
+LinkingRule:	
+ 	('with linking rule' type=JavaConstr) | 'linking nodes in range' range=DOUBLE;
+Concentration:	
+ 	'with concentration type' type=JAVACLASS ;
+Position:	
+ 	'with position type' type=JAVACLASS ;
+RandomEngine: 	
+ 	'with random' ('type' type=JAVACLASS)? 'seed' seed=Seed ;
+Time: 	
+ 	'with time type' type=JAVACLASS ;
+
+NodeGroup:
+	'place' ((gtype='single' 'node' ('named' name=IDN)? ('of type' type=JavaConstr)? 'at point' '('x=DOUBLE','y=DOUBLE')') |
+	(numNodes=INT 'nodes' ('of type' type=JavaConstr)? 'within' 
+		(
+			(gtype='rect' '('x=DOUBLE','y=DOUBLE','w=DOUBLE','h=DOUBLE')' ('interval' '('ix=DOUBLE','iy=DOUBLE')' ('tolerance' '('tx=DOUBLE','ty=DOUBLE')')?)?) |
+			(gtype='circle' '('x=DOUBLE','y=DOUBLE','r=DOUBLE')'?)
+		)
+	))
+	('containing' contents+=Constrain+)?
+	('with program' reactions+=[ReactionPool|IDN]+)? ;
+
+Reaction :
+	('eco-law' name=IDN)?
+	(
+		('reaction' type=JavaConstr
+			(
+			('[' conditions+=Condition* ']' ('-' (timeDistribution=JavaConstr | rate=EXPRESSION) '->' | '-->') '[' actions+=Action* ']') |
+			'empty'
+			)
+		) |
+		(
+		'[' conditions+=Condition+ ']' ('-' (timeDistribution=JavaConstr | rate=EXPRESSION) '->' | '-->') '[' actions+=Action* ']' |
+		'['']' ('-' (timeDistribution=JavaConstr | rate=EXPRESSION) '->' | '-->') '[' actions+=Action+ ']'
+    	)
+    );
+
+Condition :
+    ('name' name=IDN)? (('condition' type=JavaConstr) | (neigh='+')? content=Content)  (',')?;
+
+Action :
+    ('name' name=IDN)? ((('action'|'agent') type=JavaConstr) | (neigh=('+'|'*'))? content=Content)  (',')?;
+    
+Molecule :
+	'lsa' name=IDN ('type' type=JavaConstr | ('<' content=LSASTRING '>' ('description' desc=STRING)?));
+	
+Constrain :
+ 	'in' (
+ 		ctype='all' |
+ 		ctype='point' '('x=DOUBLE','y=DOUBLE')' |
+ 		ctype='rect' '('x=DOUBLE','y=DOUBLE','w=DOUBLE','h=DOUBLE')'
+ 		)
+ 		contents+=Content+;	
+Content : 
+	( mol=[Molecule|IDN] | '<' text=LSASTRING '>' );
+
+Seed:('random' | SINT) ;
+
+OPCOMPATIBLE : VAR | DOUBLE;
+
+DOUBLE : SINT ('.' INT)?;
+
+EXPRESSION : LEFTEXP RIGHTEXP;
+RIGHTEXP : (('+'|'-'|'*'|'/') LEFTEXP)?;
+LEFTEXP : OPCOMPATIBLE | '(' EXPRESSION ')';
+
+LIST : '[' LISTINTERN ']';
+LISTINTERN : ((VAR | ATOM | DOUBLE )';')*;
+
+LSAELEM : (ATOM | EXPRESSION | 
+	'def:' VAR ('>'|'<'|'<='|'>='|'='|'!=') EXPRESSION | 
+	'def:' VAR ('has'|'hasnot') LIST | 
+	'def:' VAR ('isempty' | 'notempty') | 
+	LIST |
+	'min(' (LIST | VAR) ')' |
+	'max(' (LIST | VAR) ')' |
+	VAR 'add' (LIST | VAR) |
+	VAR 'del' (LIST | VAR)
+	);
+
+LSASTRING: LSAELEM (',' LSAELEM)*;
+
+JAVAPACKAGE : ATOM('.'ATOM)*;
+
+JAVACLASS : VAR | JAVAPACKAGE'.'VAR;
+
+IDN : (ATOM | VAR | ID | STRING);
+
+JavaConstr: javaClass=JAVACLASS '(' (javaArgList=ArgList)? ')';
+ArgList: args += Arg (',' args += Arg)* ;
+Arg: IDN | DOUBLE;
+
+terminal VAR : '#'?('A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9')*;
+terminal ATOM : '@INC' | (('a'..'z')('a'..'z'|'A'..'Z'|'0'..'9')*);

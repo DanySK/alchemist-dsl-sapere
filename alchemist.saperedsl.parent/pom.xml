@@ -5,6 +5,8 @@
 	<groupId>it.unibo.alchemist</groupId>
 	<artifactId>alchemist.saperedsl.parent</artifactId>
 	<version>0.0.0</version>
+	<name>alchemist-dsl-sapere</name>
+	<description>Alchemist-SAPERE domain specific language</description>
 	<packaging>pom</packaging>
 	<properties>
 		<tycho-version>0.22.0</tycho-version>
@@ -20,7 +22,6 @@
 		<module>../alchemist.saperedsl</module>
 		<module>../alchemist.saperedsl.repository</module>
 	</modules>
-	<description>Alchemist-SAPERE domain specific language</description>
 	<url>https://github.com/DanySK/alchemist-dsl-sapere</url>
 	<licenses>
 		<license>

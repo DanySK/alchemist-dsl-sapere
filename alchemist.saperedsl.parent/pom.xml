@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 	<properties>
 		<tycho-version>0.22.0</tycho-version>
-		<xtext-version>2.7.2</xtext-version>
+		<xtext-version>2.7.3</xtext-version>
 		<!-- This property must be overridden on sign-server -->
 		<skip-signature>true</skip-signature>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

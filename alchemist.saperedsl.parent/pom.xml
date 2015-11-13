@@ -9,7 +9,7 @@
 	<description>Alchemist-SAPERE domain specific language</description>
 	<packaging>pom</packaging>
 	<properties>
-		<tycho-version>0.22.0</tycho-version>
+		<tycho-version>0.24.0</tycho-version>
 		<xtext-version>2.8.4</xtext-version>
 		<!-- This property must be overridden on sign-server -->
 		<skip-signature>true</skip-signature>

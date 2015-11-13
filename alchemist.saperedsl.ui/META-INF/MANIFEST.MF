@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: alchemist.saperedsl.ui
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0
+Bundle-Vendor: Alma Mater Studiorum Università di Bologna
+Bundle-Version: 1.1.0
 Bundle-SymbolicName: alchemist.saperedsl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: alchemist.saperedsl;visibility:=reexport,

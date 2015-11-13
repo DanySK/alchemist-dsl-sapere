@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.unibo.alchemist</groupId>
 	<artifactId>alchemist.saperedsl.parent</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<name>alchemist-dsl-sapere</name>
 	<description>Alchemist-SAPERE domain specific language</description>
 	<packaging>pom</packaging>
@@ -76,7 +76,7 @@
 						<artifact>
 							<groupId>it.unibo.alchemist</groupId>
 							<artifactId>alchemist.saperedsl.target</artifactId>
-							<version>1.0.0</version>
+							<version>1.1.0</version>
 						</artifact>
 					</target>
 					<environments>

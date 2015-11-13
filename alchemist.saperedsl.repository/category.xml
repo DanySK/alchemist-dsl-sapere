@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <bundle id="alchemist.saperedsl" version="1.0.0">
+   <bundle id="alchemist.saperedsl" version="1.1.0">
       <category name="saperedsl"/>
    </bundle>
-   <bundle id="alchemist.saperedsl.ui" version="1.0.0">
+   <bundle id="alchemist.saperedsl.ui" version="1.1.0">
       <category name="saperedsl"/>
    </bundle>
    <category-def name="saperedsl" label="Alchemist SAPERE DSL"/>
